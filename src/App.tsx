@@ -33,6 +33,12 @@ import {
 import { servicesData, projectsData, minLinkData, ServiceItem, ProjectItem } from './data';
 import { Logo } from './components/Logo';
 
+// Image assets bundled for GitHub Pages & production compatibility
+import heroImg from './assets/images/cosmin_hero_1780602879732.png';
+import minlinkImg from './assets/images/cosmin_minlink_1780602891522.png';
+import subterraneanImg from './assets/images/cosmin_subterranean_1780602903150.png';
+import laboratorioImg from './assets/images/cosmin_laboratorio_1780602916080.png';
+
 export default function App() {
   // Navigation states
   const [activeSection, setActiveSection] = useState('inicio');
@@ -46,19 +52,11 @@ export default function App() {
 
   // MinLink Interactive tool states
   const [activePillar, setActivePillar] = useState<string>('pillar-categoria');
-  const [simName, setSimName] = useState('');
-  const [simMineral, setSimMineral] = useState('Oro (Au)');
-  const [simLocation, setSimLocation] = useState('Sonora');
-  const [simSize, setSimSize] = useState('50');
-  const [simPermits, setSimPermits] = useState('En trámite');
-  const [simResult, setSimResult] = useState<any | null>(null);
-  const [simSubmitted, setSimSubmitted] = useState(false);
-  const [simLoading, setSimLoading] = useState(false);
 
   // Reference Project States
   const [selectedProjectId, setSelectedProjectId] = useState<string>('cascabel');
 
-  // Lead / Contact Forms state
+  // Quick contact preference state (pre-filled by service and project CTAs)
   const [contactForm, setContactForm] = useState({
     nombre: '',
     email: '',
@@ -66,11 +64,7 @@ export default function App() {
     mensaje: '',
     interes: 'MinLink - Inversión'
   });
-  const [contactSuccess, setContactSuccess] = useState(false);
-  const [contactSubmitting, setContactSubmitting] = useState(false);
 
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
   // Monitor page scroll to style header
   useEffect(() => {
@@ -101,48 +95,6 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setContactSubmitting(true);
-    // Simulate real database receipt
-    setTimeout(() => {
-      setContactSubmitting(false);
-      setContactSuccess(true);
-      // Reset form
-      setContactForm({
-        nombre: '',
-        email: '',
-        telefono: '',
-        mensaje: '',
-        interes: 'MinLink - Inversión'
-      });
-    }, 1200);
-  };
-
-  const handleEvaluateProjectSimulator = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!simName.trim()) return;
-    setSimLoading(true);
-    
-    setTimeout(() => {
-      // Create a smart geological summary preview
-      const score = Math.floor(Math.random() * 20) + 75; // 75-95 rating
-      const estimatedRating = score >= 90 ? 'ALTO POTENCIAL' : 'POTENCIAL MEDIO';
-      const code = `ML-${simLocation.slice(0,3).toUpperCase()}-${Math.floor(Math.random() * 900) + 100}`;
-      
-      setSimResult({
-        code,
-        score,
-        estimatedRating,
-        concession: simName,
-        mineral: simMineral,
-        area: simSize,
-        legalSecurity: simPermits === 'Concedido' ? 'ÓPTIMA' : 'REQUIERE AUDITORÍA',
-        nextStep: 'Requiere muestreo pericial en sitio por COSMIN para habilitación en Data Room.'
-      });
-      setSimLoading(false);
-    }, 1000);
-  };
 
   const getServiceIcon = (id: string) => {
     switch(id) {
@@ -162,11 +114,11 @@ export default function App() {
 
   const getProjectImage = (idx: number) => {
     switch(idx) {
-      case 0: return "/src/assets/images/cosmin_hero_1780602879732.png";
-      case 1: return "/src/assets/images/cosmin_minlink_1780602891522.png";
-      case 2: return "/src/assets/images/cosmin_subterranean_1780602903150.png";
-      case 3: return "/src/assets/images/cosmin_laboratorio_1780602916080.png";
-      default: return "/src/assets/images/cosmin_hero_1780602879732.png";
+      case 0: return heroImg;
+      case 1: return minlinkImg;
+      case 2: return subterraneanImg;
+      case 3: return laboratorioImg;
+      default: return heroImg;
     }
   };
 
@@ -218,25 +170,67 @@ export default function App() {
             ))}
           </nav>
 
-          {/* Desktop Action & WhatsApp Integration */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Desktop Action & WhatsApp & Social Networks */}
+          <div className="hidden lg:flex items-center gap-3">
             <a 
               id="header-whatsapp-btn"
               href="https://wa.me/526624471000" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-zinc-400 hover:text-emerald-400 Transition text-xs font-mono"
+              className="flex items-center gap-1.5 text-zinc-400 hover:text-emerald-400 transition text-xs font-mono mr-1"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-3.5 h-3.5 text-emerald-400" />
               <span>662 447 1000</span>
             </a>
-            <a
-              id="header-cta-minlink"
-              href="#minlink"
-              className="bg-zinc-900 hover:bg-zinc-800 text-amber-500 hover:text-amber-400 font-display font-semibold px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all duration-200 border border-amber-500/20 shadow-sm"
-            >
-              MinLink Portal
-            </a>
+
+            <div className="h-4 w-px bg-zinc-800" />
+
+            {/* Redes Sociales Header */}
+            <div className="flex items-center gap-1.5">
+              <a
+                id="header-social-facebook"
+                href="https://www.facebook.com/cosminconsultoria"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook de COSMIN"
+                title="Facebook COSMIN"
+                className="w-8 h-8 rounded-lg bg-zinc-900 hover:bg-[#1877F2]/20 border border-zinc-800 hover:border-[#1877F2]/40 text-zinc-400 hover:text-[#1877F2] flex items-center justify-center transition"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+
+              <a
+                id="header-social-instagram"
+                href="https://www.instagram.com/cosmin.mex/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram de COSMIN"
+                title="Instagram COSMIN"
+                className="w-8 h-8 rounded-lg bg-zinc-900 hover:bg-[#E4405F]/20 border border-zinc-800 hover:border-[#E4405F]/40 text-zinc-400 hover:text-[#E4405F] flex items-center justify-center transition"
+              >
+                <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+
+              <a
+                id="header-social-linkedin"
+                href="https://www.linkedin.com/in/cosmin-consultoria-358b85295/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de COSMIN"
+                title="LinkedIn COSMIN"
+                className="w-8 h-8 rounded-lg bg-zinc-900 hover:bg-[#0A66C2]/20 border border-zinc-800 hover:border-[#0A66C2]/40 text-zinc-400 hover:text-[#0A66C2] flex items-center justify-center transition"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
           {/* Mobile Menu Icon */}
@@ -296,6 +290,48 @@ export default function App() {
                 >
                   Reserva una consulta
                 </a>
+
+                {/* Mobile Social Links */}
+                <div className="flex items-center justify-center gap-3 pt-2">
+                  <a
+                    id="mobile-social-facebook"
+                    href="https://www.facebook.com/cosminconsultoria"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook de COSMIN"
+                    className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-[#1877F2] flex items-center justify-center transition"
+                  >
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                  </a>
+                  <a
+                    id="mobile-social-instagram"
+                    href="https://www.instagram.com/cosmin.mex/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram de COSMIN"
+                    className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-[#E4405F] flex items-center justify-center transition"
+                  >
+                    <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                  </a>
+                  <a
+                    id="mobile-social-linkedin"
+                    href="https://www.linkedin.com/in/cosmin-consultoria-358b85295/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn de COSMIN"
+                    className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-[#0A66C2] flex items-center justify-center transition"
+                  >
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </motion.div>
           )}
@@ -307,7 +343,7 @@ export default function App() {
         {/* Background Image Layer with Ambient Dark Shade Gradients */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/src/assets/images/cosmin_hero_1780602879732.png" 
+            src={heroImg} 
             alt="COSMIN Gran Minería de Cobre" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover object-center opacity-30 scale-105 transition-all duration-700" 
@@ -327,7 +363,7 @@ export default function App() {
           <div className="lg:col-span-7 flex flex-col items-start gap-6 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-mono text-amber-400 tracking-wider uppercase">
               <Sparkles className="w-3.5 h-3.5 animate-spin duration-3000" />
-              <span>Estilo Premium & Confiabilidad 2026</span>
+              <span>Consultoría y Servicios Integrales</span>
             </div>
 
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] text-white">
@@ -622,29 +658,6 @@ export default function App() {
             </AnimatePresence>
           </div>
 
-          {/* Quick catalog download promotion banner */}
-          <div className="mt-16 glass-panel rounded-3xl p-8 border border-amber-500/10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-400 shrink-0">
-                <FileCheck className="w-6 h-6" />
-              </div>
-              <div className="text-left">
-                <h4 className="font-display font-bold text-lg text-white">¿Necesita nuestro portafolio de capacidades completo?</h4>
-                <p className="text-zinc-400 text-xs mt-1">Descargue la propuesta de servicios técnicos autorizados de COSMIN en un PDF de alta resolución estructurado comercialmente.</p>
-              </div>
-            </div>
-            <a 
-              id="download-catalog-pdf-btn"
-              href="#contacto" 
-              onClick={() => {
-                alert("Su solicitud de portafolio se ha activado. Por favor, complete el formulario de contacto para recibir el dossier oficial COSMIN.");
-              }}
-              className="bg-amber-500 hover:bg-amber-600 text-black font-display font-bold px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider transition shrink-0"
-            >
-              Solicitar Dossier PDF
-            </a>
-          </div>
 
         </div>
 
@@ -1029,7 +1042,14 @@ export default function App() {
               <div className="mt-8 pt-6 border-t border-zinc-900">
                 <a 
                   id="concessionaire-link-form"
-                  href="#assessment-tool"
+                  href="#contacto"
+                  onClick={() => {
+                    setContactForm(prev => ({
+                      ...prev,
+                      interes: 'MinLink - Concesionario',
+                      mensaje: 'Deseo solicitar una asesoría técnica y legal para evaluar mi concesión minera e integrarla a la cartera MinLink.'
+                    }));
+                  }}
                   className="w-full inline-block text-center bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 text-amber-500 hover:text-amber-400 font-display font-semibold py-3.5 rounded-xl text-xs uppercase tracking-wider transition"
                 >
                   Evaluar mi concesión minera
@@ -1082,181 +1102,6 @@ export default function App() {
 
           </div>
 
-          {/* INTERACTIVE PRE-EVALUATION TOOL (HIGH CONVERSION GAMECHANGER) */}
-          <div id="assessment-tool" className="mt-16 bg-gradient-to-br from-zinc-900 via-zinc-950 to-zinc-900 rounded-3xl p-6 sm:p-10 border border-amber-500/10 text-left relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-48 h-48 bg-amber-500/5 rounded-full blur-[80px] pointer-events-none" />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              
-              <div className="lg:col-span-5 space-y-4">
-                <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase bg-amber-500/10 text-amber-400 px-2 py-1 rounded-md border border-amber-500/20">
-                  <Calculator className="w-3 h-3" />
-                  <span>SIMULADOR MINLINK v1.4</span>
-                </div>
-                <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-white leading-tight">
-                  Pre-Evaluación Digital de Concesión
-                </h3>
-                <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-                  Ingrese las variables generales de su título minero. Nuestro algoritmo pericial evaluará las variables para simular un índice de viabilidad técnica y clasificación preliminar.
-                </p>
-
-                <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-400 space-y-2">
-                  <p className="font-mono text-zinc-300 font-semibold flex items-center gap-1">
-                    <Lock className="w-3 h-3 text-amber-500" /> RESPETO DE CONFIDENCIALIDAD
-                  </p>
-                  <p>COSMIN no almacena ni divulga coordenadas o datos sensibles sin un acuerdo formal de confidencialidad NDA recíprocamente firmado.</p>
-                </div>
-              </div>
-
-              {/* Interactive Inputs */}
-              <div className="lg:col-span-7">
-                <form onSubmit={handleEvaluateProjectSimulator} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1.5">Nombre de la Propiedad / Título</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder="Ej. La Aurora 2"
-                        className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={simName}
-                        onChange={(e) => setSimName(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1.5">Mineral Principal</label>
-                      <select 
-                        className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={simMineral}
-                        onChange={(e) => setSimMineral(e.target.value)}
-                      >
-                        <option value="Oro (Au)">Oro (Au) / Plata (Ag)</option>
-                        <option value="Cobre (Cu)">Cobre (Cu) Pórfido</option>
-                        <option value="Plomo / Zinc">Plomo (Pb) / Zinc (Zn)</option>
-                        <option value="Otro">Otro Mineral Metálico</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1.5">Ubicación (Estado)</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder="Ej. Sonora"
-                        className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={simLocation}
-                        onChange={(e) => setSimLocation(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1.5">Tamaño (Hectáreas)</label>
-                      <input 
-                        type="number" 
-                        required
-                        placeholder="Ej. 120"
-                        className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={simSize}
-                        onChange={(e) => setSimSize(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1.5">Estatus del Título</label>
-                      <select 
-                        className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={simPermits}
-                        onChange={(e) => setSimPermits(e.target.value)}
-                      >
-                        <option value="Concedido">Título Concedido (Vigente)</option>
-                        <option value="En trámite">En Trámite de Concesión</option>
-                        <option value="Regularización">Falta Regularización de Cuotas</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <button 
-                      id="btn-trigger-simulator"
-                      type="submit"
-                      disabled={simLoading}
-                      className="w-full bg-amber-500 hover:bg-amber-600 font-display font-extrabold text-black py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition duration-200"
-                    >
-                      {simLoading ? 'Analizando Coeficientes...' : 'Calcular Viabilidad Técnica & Generar Preview Card'}
-                    </button>
-                  </div>
-                </form>
-
-                {/* Simulated Result Modal Preview Card */}
-                {simResult && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-6 p-6 rounded-2xl bg-zinc-950 border-2 border-dashed border-amber-500/30 relative"
-                    id="sim-result-card"
-                  >
-                    <div className="absolute top-4 right-4 bg-amber-500 text-black font-mono font-bold text-[8px] tracking-widest uppercase px-2 py-0.5 rounded-full">
-                      MOCKUP PREVIEW
-                    </div>
-
-                    <div className="border-b border-zinc-900 pb-4 mb-4 flex items-center justify-between">
-                      <div>
-                        <span className="font-mono text-[9px] text-zinc-500">CÓDIGO DE EXPEDIENTE REGISTRADO</span>
-                        <h4 className="font-display font-extrabold text-amber-500 leading-none mt-1">{simResult.code}</h4>
-                      </div>
-                      <div className="text-right">
-                        <span className="font-mono text-[9px] text-zinc-500">ESTIMACIÓN DE DESEMPEÑO</span>
-                        <p className="text-emerald-400 font-mono text-xs uppercase font-bold mt-1">
-                          {simResult.estimatedRating} ({simResult.score}%)
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 text-xs mb-4">
-                      <div>
-                        <span className="text-zinc-500 block uppercase font-mono text-[9px]">CONCESIÓN EVALUADA</span>
-                        <strong className="text-zinc-200 block text-sm">{simResult.concession} ({simResult.area} Has)</strong>
-                      </div>
-                      <div>
-                        <span className="text-zinc-500 block uppercase font-mono text-[9px]">VECINDAD GEOLÓGICA</span>
-                        <strong className="text-zinc-200 block text-sm">{simResult.mineral} - {simResult.legalSecurity}</strong>
-                      </div>
-                    </div>
-
-                    <div className="bg-zinc-900/40 border border-zinc-800 p-3 rounded-lg text-xs leading-relaxed text-zinc-300">
-                      <span className="text-amber-500 font-mono text-[9px] uppercase tracking-wider block font-bold">RECOMENDACIÓN DEL PERITO:</span>
-                      {simResult.nextStep}
-                    </div>
-
-                    <div className="mt-6 flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-900 justify-between items-center">
-                      <p className="text-[11px] text-zinc-400">¿Desea enviar este pre-peritaje a un consultor real de COSMIN sin costo?</p>
-                      <button 
-                        id="btn-send-sim-results"
-                        onClick={() => {
-                          setContactForm({
-                            nombre: '',
-                            email: '',
-                            telefono: '',
-                            interes: 'MinLink - Concesión Pre-Evaluada',
-                            mensaje: `Hola COSMIN, he simulado mi propiedad "${simResult.concession}" de ${simResult.area} Has en ${simLocation} con mineral de ${simResult.mineral} (Código: ${simResult.code}). Deseo agendar llamada para evaluar su inclusión en la cartera MinLink.`
-                          });
-                          setSimSubmitted(true);
-                          // Scroll smoothly to contact form
-                          document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="bg-emerald-500 hover:bg-emerald-600 text-black font-display font-bold py-2 px-4 rounded-lg text-[10px] uppercase tracking-wider transition whitespace-nowrap"
-                      >
-                        {simSubmitted ? '✓ Datos Cargados Abajo' : 'Cargar en Formulario de Contacto'}
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-              </div>
-
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -1265,7 +1110,7 @@ export default function App() {
         {/* Decorative elements */}
         <div className="absolute inset-0 z-0 opacity-15">
           <img 
-            src="/src/assets/images/cosmin_laboratorio_1780602916080.png" 
+            src={laboratorioImg} 
             alt="Muestras geológicas laboratorio" 
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover blur-sm" 
@@ -1322,10 +1167,10 @@ export default function App() {
                     <span className="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">Correo Ejecutivo</span>
                     <a 
                       id="link-mail-contact"
-                      href="mailto:contacto@cosmin-builder-xhzkhc0hburbufyz.hostingersite.com" 
+                      href="mailto:contacto@cosmin.com.mx" 
                       className="text-zinc-200 block text-xs hover:text-amber-500 font-semibold tracking-wide mt-0.5"
                     >
-                      contacto@cosmin-builder-xhzkhc0hburbufyz.hostingersite.com
+                      contacto@cosmin.com.mx
                     </a>
                     <p className="text-zinc-400 text-xs mt-1">Respuesta técnica garantizada en menos de 24 horas.</p>
                   </div>
@@ -1340,166 +1185,126 @@ export default function App() {
                 <span className="px-2 py-1 rounded bg-zinc-900 text-xs font-mono text-zinc-400 border border-zinc-800">SEDENA</span>
                 <span className="px-2 py-1 rounded bg-zinc-900 text-xs font-mono text-zinc-400 border border-zinc-800">SEMARNAT</span>
               </div>
-            </div>
 
-            {/* Premium Lead Form Box (High conversion setup) */}
-            <div className="lg:col-span-7">
-              <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-amber-500/10 shadow-2xl relative">
-                
-                {/* Backdrop lighting */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl pointer-events-none" />
-
-                <div className="mb-6 text-left">
-                  <h3 className="font-display font-extrabold text-2xl text-white">Formulario de Consulta Directa</h3>
-                  <p className="text-zinc-400 text-xs mt-1">Complete los datos y un perito de COSMIN se comunicará con usted de inmediato.</p>
-                </div>
-
-                <form onSubmit={handleContactSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1 text-left">Nombre Completo *</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder="Ej. Ing. Carlos Mendoza"
-                        className="w-full bg-zinc-950/80 border border-zinc-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/25 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={contactForm.nombre}
-                        onChange={(e) => setContactForm({...contactForm, nombre: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1 text-left">Correo Electrónico *</label>
-                      <input 
-                        type="email" 
-                        required
-                        placeholder="carlos.mendoza@empresa.com"
-                        className="w-full bg-zinc-950/80 border border-zinc-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/25 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={contactForm.email}
-                        onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1 text-left">Número de Teléfono *</label>
-                      <input 
-                        type="tel" 
-                        required
-                        placeholder="Ej. 662 123 4567"
-                        className="w-full bg-zinc-950/80 border border-zinc-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/25 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={contactForm.telefono}
-                        onChange={(e) => setContactForm({...contactForm, telefono: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1 text-left">Interés Principal</label>
-                      <select 
-                        className="w-full bg-zinc-950/80 border border-zinc-800 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans"
-                        value={contactForm.interes}
-                        onChange={(e) => setContactForm({...contactForm, interes: e.target.value})}
-                      >
-                        <option value="MinLink - Inversión">Registrarme para invertir en minería</option>
-                        <option value="MinLink - Concesionario">Evaluar y listar mi propiedad minera</option>
-                        <option value="Gestión de Permisos">Permisología (SE / SEDENA / SEMARNAT)</option>
-                        <option value="Servicios Técnicos & Barrenación">Estudios Técnicos y Exploración</option>
-                        <option value="Obra Civil o Termofusión">Obra Civil o Termofusión HDPE</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-zinc-400 font-mono mb-1 text-left">Mensaje o Requerimiento Específico *</label>
-                    <textarea 
-                      rows={4}
-                      required
-                      placeholder="Describa brevemente la situación de sus títulos, el mineral, el volumen o la necesidad de permisos..."
-                      className="w-full bg-zinc-950/80 border border-zinc-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/25 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-sans resize-none"
-                      value={contactForm.mensaje}
-                      onChange={(e) => setContactForm({...contactForm, mensaje: e.target.value})}
-                    />
-                  </div>
-
-                  <div className="flex items-center gap-1.5 py-1 text-[11px] text-zinc-400 text-left">
-                    <ShieldCheck className="w-4 h-4 text-amber-500 shrink-0" />
-                    <span>Sus datos están encriptados y protegidos por la Ley Federal de Datos Personales de México.</span>
-                  </div>
-
-                  <button 
-                    id="btn-submit-lead-form"
-                    type="submit"
-                    disabled={contactSubmitting}
-                    className="w-full bg-amber-500 hover:bg-amber-600 font-display font-extrabold text-black py-4 px-6 rounded-2xl text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2"
+              {/* Social Networks in Contact */}
+              <div className="pt-2 w-full flex items-center gap-3">
+                <span className="text-[10px] uppercase font-mono text-zinc-500 font-semibold">Redes Oficiales:</span>
+                <div className="flex items-center gap-2">
+                  <a
+                    id="contact-social-facebook"
+                    href="https://www.facebook.com/cosminconsultoria"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook de COSMIN"
+                    title="Facebook COSMIN"
+                    className="w-8 h-8 rounded-lg bg-zinc-900 hover:bg-[#1877F2]/20 border border-zinc-800 hover:border-[#1877F2]/40 text-zinc-400 hover:text-[#1877F2] flex items-center justify-center transition"
                   >
-                    {contactSubmitting ? 'Procesando Envío Seguro...' : 'Enviar Solicitud e Iniciar Consulta'}
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-
-                  {/* Real success layout feedback */}
-                  {contactSuccess && (
-                    <motion.div 
-                      id="contact-form-success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs text-left flex gap-3 items-start"
-                    >
-                      <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
-                      <div>
-                        <strong className="block font-bold">¡Solicitud Procesada Exitosamente!</strong>
-                        <p className="mt-1">Hemos registrado su expediente bajo el ID de seguimiento comercial <strong>CS-{(Math.floor(Math.random() * 80000) + 10000)}</strong>. Un perito en minería de COSMIN se comunicaría con usted vía telefónica o correo electrónico en las próximas horas.</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </form>
-
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                  </a>
+                  <a
+                    id="contact-social-instagram"
+                    href="https://www.instagram.com/cosmin.mex/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram de COSMIN"
+                    title="Instagram COSMIN"
+                    className="w-8 h-8 rounded-lg bg-zinc-900 hover:bg-[#E4405F]/20 border border-zinc-800 hover:border-[#E4405F]/40 text-zinc-400 hover:text-[#E4405F] flex items-center justify-center transition"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                  </a>
+                  <a
+                    id="contact-social-linkedin"
+                    href="https://www.linkedin.com/in/cosmin-consultoria-358b85295/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn de COSMIN"
+                    title="LinkedIn COSMIN"
+                    className="w-8 h-8 rounded-lg bg-zinc-900 hover:bg-[#0A66C2]/20 border border-zinc-800 hover:border-[#0A66C2]/40 text-zinc-400 hover:text-[#0A66C2] flex items-center justify-center transition"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
 
-          </div>
+            {/* Google Maps Location Component */}
+            <div className="lg:col-span-7">
+              <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-amber-500/20 shadow-2xl relative overflow-hidden bg-zinc-900/90 flex flex-col gap-6">
+                
+                {/* Backdrop ambient glow */}
+                <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Interactive Mock Map Component to show Realism */}
-          <div className="mt-16 bg-zinc-90 w-full rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900/50 p-6 sm:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left">
-              <div className="lg:col-span-4 space-y-3">
-                <span className="font-mono text-[9px] text-amber-500 uppercase tracking-widest font-bold">MAPA SATELITAL DE CONTROL</span>
-                <h4 className="font-display font-bold text-xl text-white">Sede Central: Hermosillo</h4>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  Ubicación central privilegiada para coordinar operaciones de barrenación, obra civil y termofusión en la Sierra de Sonora y estados aledaños del norte de México.
-                </p>
-                <div className="p-3 bg-zinc-950 rounded-xl border border-zinc-800 text-xs">
-                  <p className="font-semibold text-zinc-200">Av. Leopoldo Ramos 297</p>
-                  <p className="text-zinc-500">Hermosillo, Sonora, C.P. 83180</p>
-                </div>
-              </div>
-              <div className="lg:col-span-8 h-[240px] rounded-2xl overflow-hidden relative border border-zinc-900">
-                {/* Mocking interactive google maps accurately with beautiful high-end dark slate render */}
-                <div className="absolute inset-0 bg-zinc-950 z-0 flex flex-col items-center justify-center">
-                  {/* Geological Grid overlay */}
-                  <div className="absolute inset-0 opacity-15 bg-radial-[circle_at_center,_#f59e0b_1px,_transparent_1px] bg-[size:16px_16px]" />
-                  
-                  {/* Simulated map graphic */}
-                  <div className="relative w-full h-full flex flex-col items-center justify-center p-4">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
-                      <div className="w-10 h-10 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center animate-bounce">
-                        <MapPin className="w-5 h-5 text-amber-500" />
-                      </div>
-                      <span className="bg-zinc-900 text-[10px] text-white font-mono px-2 py-0.5 rounded border border-zinc-800 whitespace-nowrap">
-                        COSMIN CENTRAL
-                      </span>
-                    </div>
-
-                    {/* Street references */}
-                    <div className="absolute top-4 left-6 text-[9px] font-mono text-zinc-500">CO Olivares / Ley 57</div>
-                    <div className="absolute bottom-8 right-12 text-[9px] font-mono text-zinc-500">Blvd. Solidaridad</div>
-                    <div className="absolute top-1/3 right-1/4 text-[9px] font-mono text-zinc-600 block">Calle Olivares</div>
-
-                    <div className="absolute bottom-4 right-4 bg-zinc-900/90 backdrop-blur-sm p-2 rounded border border-zinc-800 text-right text-[10px] font-mono text-zinc-400">
-                      Coordenadas: 29.1024° N, 110.9754° W
-                    </div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left relative z-10">
+                  <div>
+                    <span className="font-mono text-[10px] text-amber-500 uppercase tracking-widest font-bold flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                      UBICACIÓN SEDE CENTRAL • GOOGLE MAPS
+                    </span>
+                    <h3 className="font-display font-extrabold text-2xl text-white mt-1">
+                      Sede Central: Hermosillo, Sonora
+                    </h3>
+                    <p className="text-zinc-400 text-xs mt-1">
+                      Av. Leopoldo Ramos 297, Col. Olivares, C.P. 83180 Hermosillo, Sonora, México
+                    </p>
                   </div>
+
+                  <a
+                    id="btn-open-google-maps"
+                    href="https://www.google.com/maps/search/?api=1&query=Av.+Leopoldo+Ramos+297,+Col.+Olivares,+83180+Hermosillo,+Sonora,+M%C3%A9xico"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-display font-bold text-xs uppercase tracking-wider transition shrink-0 shadow-lg shadow-amber-500/20"
+                  >
+                    <span>Ver en Google Maps</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* Google Maps Embed iframe with accurate address */}
+                <div className="w-full h-[380px] sm:h-[420px] rounded-2xl overflow-hidden border border-zinc-800 relative shadow-inner bg-zinc-950">
+                  <iframe
+                    title="Ubicación COSMIN Hermosillo en Google Maps"
+                    src="https://maps.google.com/maps?q=Av.+Leopoldo+Ramos+297,+Col.+Olivares,+83180+Hermosillo,+Sonora,+M%C3%A9xico&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0 filter contrast-[1.02] brightness-[0.98]"
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+
+                {/* Direct quick action buttons */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <a
+                    id="map-cta-whatsapp"
+                    href={`https://wa.me/526624471000?text=${encodeURIComponent(contactForm.mensaje || 'Hola COSMIN, deseo solicitar información sobre sus servicios técnicos y mineros en Hermosillo.')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-semibold text-xs tracking-wider uppercase transition"
+                  >
+                    <MessageCircle className="w-4 h-4 text-emerald-400" />
+                    <span>WhatsApp: +52 662 447 1000</span>
+                  </a>
+
+                  <a
+                    id="map-cta-mail"
+                    href="mailto:contacto@cosmin.com.mx"
+                    className="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white font-semibold text-xs tracking-wider uppercase transition"
+                  >
+                    <Mail className="w-4 h-4 text-amber-500" />
+                    <span>Enviar Correo Oficial</span>
+                  </a>
                 </div>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -1519,25 +1324,77 @@ export default function App() {
               Servicios Industriales, Gestión de Licencias SEDENA/SE/SEMARNAT, Proyectos Civiles y Plataforma MinLink de Vinculación Geonormativa en México.
             </p>
 
-            <div className="flex items-center gap-3">
-              <a 
-                id="footer-wa"
-                href="https://wa.me/526624471000" 
-                target="_blank" 
-                aria-label="whatsapp link"
-                rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 text-zinc-400 hover:text-emerald-400 transition"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
-              <a 
-                id="footer-mail"
-                href="mailto:contacto@cosmin-builder-xhzkhc0hburbufyz.hostingersite.com"
-                aria-label="mail link"
-                className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 text-zinc-400 hover:text-amber-500 transition"
-              >
-                <Mail className="w-4 h-4" />
-              </a>
+            <div className="pt-1">
+              <span className="text-[10px] uppercase font-mono text-zinc-500 block mb-2.5 font-bold tracking-wider">
+                Redes Sociales & Canales Oficiales
+              </span>
+              <div className="flex items-center gap-2">
+                <a 
+                  id="footer-social-facebook"
+                  href="https://www.facebook.com/cosminconsultoria" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Facebook de COSMIN"
+                  title="Facebook COSMIN"
+                  className="w-9 h-9 rounded-xl bg-zinc-900 hover:bg-[#1877F2]/20 border border-zinc-800 hover:border-[#1877F2]/40 text-zinc-400 hover:text-[#1877F2] flex items-center justify-center transition-all duration-200"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+
+                <a 
+                  id="footer-social-instagram"
+                  href="https://www.instagram.com/cosmin.mex/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Instagram de COSMIN"
+                  title="Instagram COSMIN"
+                  className="w-9 h-9 rounded-xl bg-zinc-900 hover:bg-[#E4405F]/20 border border-zinc-800 hover:border-[#E4405F]/40 text-zinc-400 hover:text-[#E4405F] flex items-center justify-center transition-all duration-200"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                  </svg>
+                </a>
+
+                <a 
+                  id="footer-social-linkedin"
+                  href="https://www.linkedin.com/in/cosmin-consultoria-358b85295/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn de COSMIN"
+                  title="LinkedIn COSMIN"
+                  className="w-9 h-9 rounded-xl bg-zinc-900 hover:bg-[#0A66C2]/20 border border-zinc-800 hover:border-[#0A66C2]/40 text-zinc-400 hover:text-[#0A66C2] flex items-center justify-center transition-all duration-200"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+
+                <a 
+                  id="footer-wa"
+                  href="https://wa.me/526624471000" 
+                  target="_blank" 
+                  aria-label="WhatsApp de COSMIN"
+                  title="WhatsApp Oficial COSMIN"
+                  rel="noreferrer"
+                  className="w-9 h-9 rounded-xl bg-zinc-900 hover:bg-emerald-500/20 border border-zinc-800 hover:border-emerald-500/40 text-zinc-400 hover:text-emerald-400 flex items-center justify-center transition-all duration-200"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+
+                <a 
+                  id="footer-mail"
+                  href="mailto:contacto@cosmin.com.mx"
+                  aria-label="Correo de COSMIN"
+                  title="Correo Oficial COSMIN"
+                  className="w-9 h-9 rounded-xl bg-zinc-900 hover:bg-amber-500/20 border border-zinc-800 hover:border-amber-500/40 text-zinc-400 hover:text-amber-500 flex items-center justify-center transition-all duration-200"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
 
@@ -1548,7 +1405,7 @@ export default function App() {
               <li><a href="#servicios" onClick={() => setSelectedServiceCategory('mining')} className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Servicios Mineros Técnicos</a></li>
               <li><a href="#servicios" onClick={() => setSelectedServiceCategory('industrial')} className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Industrial & Obra Civil</a></li>
               <li><a href="#minlink" className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">MinLink Strategic Hub</a></li>
-              <li><a href="#assessment-tool" className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Simulador de Concesiones</a></li>
+              <li><a href="#contacto" className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Asesoría y Dictámenes</a></li>
             </ul>
           </div>
 
@@ -1562,38 +1419,37 @@ export default function App() {
             </ul>
           </div>
 
-          {/* Core Newsletter */}
+          {/* Boletín MinLink -> Botón Comunidad WhatsApp */}
           <div className="md:col-span-3 space-y-3">
-            <h5 className="font-mono text-[10px] uppercase font-extrabold text-amber-500 tracking-wider">Boletín MinLink</h5>
-            <p className="text-zinc-500 text-[11px]">Regístrese para recibir alertas confidenciales de nuevas concesiones verificadas listas para financiamientos.</p>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono text-[9px] uppercase tracking-wider font-semibold">
+                <MessageCircle className="w-3 h-3" />
+                Comunidad Activa
+              </span>
+            </div>
+            <h5 className="font-display font-bold text-base text-white">
+              Boletín MinLink en WhatsApp
+            </h5>
+            <p className="text-zinc-400 text-xs leading-relaxed">
+              Únase a nuestro grupo exclusivo de WhatsApp para recibir reportes geonormativos, alertas de proyectos mineros y oportunidades de inversión.
+            </p>
             
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                setNewsletterSubscribed(true);
-                setNewsletterEmail('');
-              }} 
-              className="flex gap-2"
+            <a
+              id="btn-join-minlink-group-wa"
+              href="https://wa.me/526624471000?text=Hola%20COSMIN%2C%20deseo%20solicitar%20unirme%20al%20grupo%20exclusivo%20de%20WhatsApp%20de%20la%20Red%20MinLink."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group w-full flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-black font-display font-extrabold py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all duration-200 shadow-lg shadow-emerald-500/20 mt-1"
             >
-              <input 
-                type="email" 
-                required
-                placeholder="correo@empresa.com"
-                className="bg-zinc-900 border border-zinc-800 text-xs px-3 py-2 rounded-xl text-white focus:outline-none focus:border-amber-500 flex-1 font-sans"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-              />
-              <button 
-                id="btn-newsletter"
-                type="submit"
-                className="bg-amber-500 hover:bg-amber-600 text-black px-3 py-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition"
-              >
-                OK
-              </button>
-            </form>
-            {newsletterSubscribed && (
-              <p className="text-emerald-400 text-[10px]">¡Inscripción de alerta confirmada!</p>
-            )}
+              <MessageCircle className="w-4 h-4 fill-black/20" />
+              <span>Unirse al Grupo WhatsApp</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+            </a>
+
+            <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 font-mono pt-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span>Acceso directo para concesionarios e inversionistas</span>
+            </div>
           </div>
 
         </div>
