@@ -478,7 +478,7 @@ export default function App() {
           <div className="lg:col-span-5 relative flex flex-col">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-zinc-800 group flex-1 flex flex-col h-full">
               <img 
-                src="/src/assets/images/cosmin_subterranean_1780602903150.png" 
+                src={subterraneanImg} 
                 alt="Ingenieros de COSMIN en campo subterráneo" 
                 referrerPolicy="no-referrer"
                 className="w-full h-full min-h-[400px] object-cover hover:scale-105 transition-all duration-500 flex-1"
