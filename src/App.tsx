@@ -1458,8 +1458,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 border-t border-zinc-900 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
           <p>© 2026 COSMIN S.A. de C.V. Todos los derechos reservados. Hermosillo, Sonora, México.</p>
           <div className="flex gap-4">
-            <a href="#contacto" onClick={() => alert("Aviso de Privacidad: COSMIN opera bajo estricto NDA. Sus datos de concesiones y peritajes se resguardan legalmente.")} className="hover:text-zinc-300">Aviso de Privacidad</a>
-            <a href="#contacto" onClick={() => alert("Términos del Servicio: Los análisis del simulador son proyecciones técnicas de primer orden y requieren validación formal.")} className="hover:text-zinc-300">Términos y Condiciones</a>
+            <a href="#contacto" className="hover:text-zinc-300">Aviso de Privacidad</a>
+            <a href="#contacto" className="hover:text-zinc-300">Términos y Condiciones</a>
           </div>
         </div>
 
