@@ -50,25 +50,25 @@ export const servicesData: ServiceItem[] = [
     id: 'servicios-tecnicos',
     title: 'Servicios Técnicos Especializados',
     category: 'mining',
-    shortDesc: 'Asesoría geológica avanzada, control de minado y supervisión de obra subterránea.',
-    longDesc: 'Ingeniería geológica integrada para optimizar la explotación. Ofrecemos mapeos geológicos de alta resolución, geoquímica, control de leyes y calibración fina de equipos.',
+    shortDesc: 'Asesoría geológica avanzada, control de calidad y diseño minero subterráneo y a tajo abierto.',
+    longDesc: 'Ingeniería geológica integrada para optimizar la explotación en labores subterráneas y a tajo abierto. Nuestros servicios son de consultoría e ingeniería especializada.',
     bullets: [
       'Mapeo geológico sistemático y muestreo geoquímico.',
-      'Control de calidad de leyes (QA/QC) en tiempo real.',
-      'Planificación y diseño de obra subterránea y rajo abierto.',
-      'Supervisión técnica de frentes de minado.'
+      'Control de calidad de leyes (QA/QC) documental y analítico.',
+      'Planificación y diseño de obra subterránea y a tajo abierto.',
+      'Modelado geológico estructural y análisis de estabilidad.'
     ],
-    specs: 'Ingeniería geológica de campo permanente'
+    specs: 'Ingeniería geológica de gabinete y campo consultivo'
   },
   {
     id: 'exploracion',
     title: 'Exploración y Estimación de Reservas',
     category: 'mining',
     shortDesc: 'Métodos geofísicos avanzados y campañas de barrenación sistemática.',
-    longDesc: 'Ejecutamos programas integrales de exploración geofísica y diamantina. Modelamos cuerpos mineralizados en 3D para certificar el tonelaje y ley de las reservas.',
+    longDesc: 'Ejecutamos programas integrales de exploración geofísica y diamantina. Modelamos cuerpos mineralizados en 3D para certificar el tonelaje y la estimación de reservas y recursos.',
     bullets: [
       'Estudios geofísicos (magnetometría, resistividad y polarización inducida).',
-      'Diseño y supervisión de campañas de barrenación con diamante y aire reverso.',
+      'Diseño y supervisión en campañas de barrenación por circulación inversa.',
       'Modelado geológico tridimensional en softwares especializados.',
       'Estimación de recursos y reservas certificables.'
     ],
@@ -93,7 +93,7 @@ export const servicesData: ServiceItem[] = [
     title: 'Comercialización de Concentrados',
     category: 'mining',
     shortDesc: 'Facilitación de contratos de compraventa y logística internacional segura.',
-    longDesc: 'Asesoramos en la valorización comercial de concentrados mineros. Estructuramos contratos favorables y coordinamos la cadena logística para envíos de minerales de alta ley.',
+    longDesc: 'Asesoramos en la valorización comercial de concentrado mineral. Estructuramos contratos favorables y coordinamos la cadena logística para envíos de minerales de alta ley.',
     bullets: [
       'Asesoría y negociación de contratos de maquila con fundidoras.',
       'Cálculo de penalizaciones y bonificaciones en concentrados.',
@@ -112,30 +112,16 @@ export const servicesData: ServiceItem[] = [
       'Termofusión y electrofusión de tuberías HDPE a tope.',
       'Certificación de uniones hidráulicas de servicio pesado.',
       'Conducción de jales, agua de proceso y soluciones ácidas.',
-      'Operadores calificados y equipos calibrados de alta gama.'
+      'Operadores certificados y maquinaria especializada de alta gama.'
     ],
     specs: 'Diámetros de 2 y hasta 63 pulgadas certificados'
-  },
-  {
-    id: 'obra-civil',
-    title: 'Obra Civil y Movimiento de Tierras',
-    category: 'industrial',
-    shortDesc: 'Construcción pesada, accesos mineros, naves industriales y puentes vialidades.',
-    longDesc: 'Estructuramos las bases físicas para las operaciones mineras e industriales. Realizamos desmontes, excavaciones, terraplenes e infraestructura duradera en terrenos hostiles.',
-    bullets: [
-      'Caminos de acceso para transporte pesado y vialidades.',
-      'Cimentaciones especiales para maquinaria pesada.',
-      'Naves industriales de gran escala y almacenes de reactivos.',
-      'Construcción civil de presas de jales y piletas de lixiviación.'
-    ],
-    specs: 'Infraestructura robusta para entornos de alta montaña'
   },
   {
     id: 'metalmecanica',
     title: 'Metalmecánica Certificada',
     category: 'industrial',
     shortDesc: 'Fabricación calificada de silos, tolvas, chutes y tanques de proceso.',
-    longDesc: 'Brindamos servicio de herrería y pailería pesada. Contamos con técnicos certificados en procesos de soldadura estructural de alta exigencia mecánica.',
+    longDesc: 'Brindamos servicio de herrería y estructuras metálicas industriales. Contamos con técnicos certificados en procesos de soldadura estructural de alta exigencia mecánica.',
     bullets: [
       'Cálculo estructural y fabricación de silos de gran capacidad.',
       'Revestimiento de chutes y tolvas con placas antidesgaste.',
@@ -146,15 +132,15 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: 'renta-espacios',
-    title: 'Movilidad Civil y Equipamiento Pesado',
+    title: 'Campamentos y Oficinas Modulares',
     category: 'industrial',
-    shortDesc: 'Venta y renta de campamentos modulares oficinas y bodegas móviles.',
-    longDesc: 'Garantizamos habitabilidad y operatividad inmediata en sitios remotos. Oficinas móviles, dormitorios ejidales, almacenes y maquinaria pesada con alto estándar de mantenimiento.',
+    shortDesc: 'Venta y renta de campamentos modulares, oficinas y bodegas móviles en sitio.',
+    longDesc: 'Garantizamos habitabilidad y operatividad inmediata en locaciones remotas y proyectos mineros. Módulos móviles, dormitorios, almacenes y comedores industriales.',
     bullets: [
-      'Módulos habitables y comedores industriales para campamentos mineros.',
-      'Oficinas móviles equipadas con aislamiento térmico premium.',
-      'Renta y logística de maquinaria pesada para movimiento de tierras.',
-      'Soporte técnico y mantenimiento en sitio 24/7.'
+      'Módulos habitables y comedores industriales para personal.',
+      'Oficinas móviles ejecutivas con aislamiento térmico y climatización.',
+      'Bodegas y almacenes modulares temporales de rápida instalación.',
+      'Instalación, acondicionamiento y mantenimiento en sitio.'
     ],
     specs: 'Disponibilidad inmediata para despliegue en campo'
   }
@@ -208,7 +194,7 @@ export const projectsData: ProjectItem[] = [
     bullets: [
       'Digitalización y modelado tridimensional del muestreo petrográfico.',
       'Cálculo geoestadístico de reservas y categorización de recursos medidos/indicados.',
-      'Diseño y supervisión técnica de frentes de explotación con control de leyes.',
+      'Estimación de reservas y recursos y diseño de frentes de explotación.',
       'Planeación a corto y mediano plazo de la tasa de alimentación al molino de beneficio.'
     ],
     imageIdx: 1 // cosmin_minlink
@@ -260,8 +246,9 @@ export const minLinkData = {
     {
       id: 'pillar-verificacion',
       title: 'VERIFICACIÓN DE CAMPO',
-      description: 'Filtramos proyectos especulativos de escritorio. Cada propiedad listada en MinLink cuenta con una inspección física hecha por expertos de COSMIN.',
+      description: 'Filtramos proyectos en etapa de evaluación. Cada propiedad listada en CosLink cuenta con una inspección física hecha por expertos de COSMIN.',
       bullets: ['Inspección pericial en sitio.', 'Muestreos de control verificados en laboratorios certificados.', 'Estructuración de paquetes de datos limpios listos para data room.']
     }
   ]
 };
+

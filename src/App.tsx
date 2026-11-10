@@ -35,6 +35,11 @@ import { Logo } from './components/Logo';
 
 // Image assets bundled for GitHub Pages & production compatibility
 import heroImg from './assets/images/cosmin_hero_1780602879732.png';
+import minaCascabelImg from './assets/images/MinaCascabel.webp';
+import minaThreeSaintsImg from './assets/images/MinaThreeSaints.webp';
+import acuaductoImg from './assets/images/Acuaducto.webp';
+import minaImg from './assets/images/Mina.webp';
+import mina2Img from './assets/images/Mina2.webp';
 import minlinkImg from './assets/images/cosmin_minlink_1780602891522.png';
 import subterraneanImg from './assets/images/cosmin_subterranean_1780602903150.png';
 import laboratorioImg from './assets/images/cosmin_laboratorio_1780602916080.png';
@@ -76,7 +81,7 @@ export default function App() {
       }
 
       // Simple active link spy
-      const sections = ['inicio', 'acerca', 'servicios', 'proyectos', 'minlink', 'contacto'];
+      const sections = ['inicio', 'acerca', 'servicios', 'proyectos', 'coslink', 'contacto'];
       const scrollPosition = window.scrollY + 250;
 
       for (const section of sections) {
@@ -114,11 +119,11 @@ export default function App() {
 
   const getProjectImage = (idx: number) => {
     switch(idx) {
-      case 0: return heroImg;
-      case 1: return minlinkImg;
-      case 2: return subterraneanImg;
-      case 3: return laboratorioImg;
-      default: return heroImg;
+      case 0: return minaCascabelImg;
+      case 1: return mina2Img;
+      case 2: return minaThreeSaintsImg;
+      case 3: return acuaductoImg;
+      default: return minaCascabelImg;
     }
   };
 
@@ -152,7 +157,7 @@ export default function App() {
               { id: 'acerca', label: 'Nosotros' },
               { id: 'servicios', label: 'Servicios' },
               { id: 'proyectos', label: 'Proyectos' },
-              { id: 'minlink', label: 'MinLink' },
+              { id: 'coslink', label: 'COSLINK' },
               { id: 'contacto', label: 'Contacto' }
             ].map((tab) => (
               <a
@@ -258,7 +263,7 @@ export default function App() {
                 { id: 'acerca', label: 'Nosotros' },
                 { id: 'servicios', label: 'Servicios' },
                 { id: 'proyectos', label: 'Proyectos' },
-                { id: 'minlink', label: 'MinLink' },
+                { id: 'coslink', label: 'COSLINK' },
                 { id: 'contacto', label: 'Contacto' }
               ].map((tab) => (
                 <a
@@ -367,7 +372,7 @@ export default function App() {
             </div>
 
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] text-white">
-              Sinergia Minera de <span className="gradient-text-gold block sm:inline">Alto Nivel</span> en el Norte del País 
+              Consultoría y <span className="gradient-text-gold">Servicios Integrales</span> para la Minería e Industria.
             </h1>
 
             <blockquote className="border-l-4 border-amber-500 pl-4 py-2 my-2 text-zinc-300 text-lg md:text-xl font-medium tracking-wide">
@@ -375,7 +380,7 @@ export default function App() {
             </blockquote>
 
             <p className="hidden md:block text-zinc-400 text-base md:text-lg max-w-xl leading-relaxed">
-              Consultoría y Servicios Integrales en Ingeniería, permisos SE/SEDENA/SEMARNAT, obras complejas y el servicio exclusivo <strong className="text-zinc-200">MinLink</strong> para vincular estratégicamente concesionarios de mineral con inversionistas de capital.
+              Consultoría y Servicios Integrales en Ingeniería, permisos SE/SEDENA/SEMARNAT, obras complejas y el servicio exclusivo <strong className="text-zinc-200">CosLink</strong> para vincular estratégicamente concesionarios de mineral con inversionistas de capital.
             </p>
 
             {/* Premium CTA Container */}
@@ -428,7 +433,7 @@ export default function App() {
               </div>
 
               <div className="mb-6">
-                <p className="text-xs uppercase font-mono text-amber-500 tracking-widest">MINLINK PLATAFORMA</p>
+                <p className="text-xs uppercase font-mono text-amber-500 tracking-widest">COSLINK PLATAFORMA</p>
                 <h3 className="font-display font-bold text-2xl text-white mt-1">Concesión Activa & Auditoría de Campo</h3>
                 <p className="text-zinc-400 text-sm mt-2">
                   Estructuramos y auditamos propiedades mineras para enlazarlas con inversionistas privados e institucionales de manera transparente.
@@ -455,7 +460,7 @@ export default function App() {
 
               <a 
                 id="hero-side-card-cta"
-                href="#minlink"
+                href="#coslink"
                 className="w-full flex items-center justify-center gap-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-zinc-100 font-display font-semibold py-3.5 px-4 rounded-xl transition duration-200 text-xs uppercase tracking-widest border border-zinc-800 hover:border-amber-500"
               >
                 <span>Acceder a la Cartera de Proyectos</span>
@@ -478,7 +483,7 @@ export default function App() {
           <div className="lg:col-span-5 relative flex flex-col">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-zinc-800 group flex-1 flex flex-col h-full">
               <img 
-                src={subterraneanImg} 
+                src={minaThreeSaintsImg} 
                 alt="Ingenieros de COSMIN en campo subterráneo" 
                 referrerPolicy="no-referrer"
                 className="w-full h-full min-h-[400px] object-cover hover:scale-105 transition-all duration-500 flex-1"
@@ -510,7 +515,8 @@ export default function App() {
             </h2>
 
             <p className="text-zinc-300 text-base leading-relaxed">
-              <strong>COSMIN</strong> es una firma especializada en ingeniería minera e industrial con un fuerte despliegue técnico operativo en la zona norte de México. Ofrecemos a concesionarios, contratistas e inversionistas soluciones de ingeniería integral altamente robustas y confiables.
+              <strong>Ingeniería geológica validada por peritos mineros:</strong> Un perito minero puede tener diversas funciones pero en el caso de COSMIN nuestro caso están relacionados directamente con la evaluación y desarrollo de Peritajes judiciales y resolución de conflictos: Actúa como perito ante tribunales o fiscalías para resolver disputas sobre límites de concesiones, invasión de terrenos, daños a propiedades vecinas o tasación de servidumbres.<br/><br/>
+              Para proyectos específicos (como obras de construcción, desarrollos urbanos o estudios de impacto ambiental), la información geológica también suele ser validada y firmada por peritos profesionales o especialistas certificados en geología (geólogos, geofísicos o ingenieros geólogos con cédula profesional) y revisada por dependencias normativas como la Secretaría de Medio Ambiente y Recursos Naturales (SEMARNAT) o Protección Civil, según el propósito del estudio.
             </p>
 
             <p className="text-zinc-400 text-sm leading-relaxed">
@@ -523,7 +529,7 @@ export default function App() {
                 <ShieldCheck className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-sm font-semibold text-zinc-200 tracking-wider block">CONFIABILIDAD JURÍDICA</strong>
-                  <span className="text-xs text-zinc-400 mt-0.5 block">Permitología ante dependencias reguladoras con estricto apego a leyes nacionales.</span>
+                  <span className="text-xs text-zinc-400 mt-0.5 block">Permisología ante dependencias reguladoras con estricto apego a leyes nacionales.</span>
                 </div>
               </div>
 
@@ -886,8 +892,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. MINLINK STRATEGIC HUB (CONVERSION & TRUST CRUCIAL ELEMENT) */}
-      <section id="minlink" className="py-24 bg-zinc-900/40 relative overflow-hidden">
+      {/* 5. COSLINK STRATEGIC HUB (CONVERSION & TRUST CRUCIAL ELEMENT) */}
+      <section id="coslink" className="py-24 bg-zinc-900/40 relative overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-zinc-950 to-transparent" />
         
         {/* Abstract geological vector map watermark effect */}
@@ -904,17 +910,17 @@ export default function App() {
               Servicio de Vinculación de COSMIN
             </span>
             <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-              MinLink: El <span className="gradient-text-gold">Ecosistema Minero</span> Integrador
+              CosLink: El <span className="gradient-text-gold">Ecosistema Minero</span> Integrador
             </h2>
             <p className="text-zinc-400 text-sm leading-relaxed">
-              Propocionamos infraestructura técnica y certidumbre legal para disolver las barreras que separan a concesionarios de títulos sin capital de los fondos inversionistas calificados.
+              Proporcionamos infraestructura técnica y respaldo legal para disolver las barreras que separan a concesionarios de títulos sin capital de los fondos inversionistas calificados.
             </p>
           </div>
 
           {/* Interactive Pillars Representation Graphic */}
           <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 mb-16">
             <h3 className="font-display font-extrabold text-xl text-center text-white uppercase tracking-widest mb-8">
-              PILARES DE LA CARTERA DE PROYECTOS VERIFICADOS
+              CRITERIOS DE EVALUACIÓN DE OPORTUNIDADES MINERAS
             </h3>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -928,7 +934,7 @@ export default function App() {
                   
                   {/* Center Hub */}
                   <div className="z-10 w-24 h-24 rounded-full bg-zinc-950 border-2 border-amber-500 flex flex-col items-center justify-center shadow-lg text-center p-2">
-                    <span className="font-display font-extrabold text-xs text-white uppercase">MINLINK</span>
+                    <span className="font-display font-extrabold text-xs text-white uppercase">Coslink</span>
                     <span className="font-mono text-[8px] text-amber-500 uppercase tracking-widest font-bold">VERIFIED</span>
                   </div>
 
@@ -1129,7 +1135,7 @@ export default function App() {
                 Iniciemos el <span className="gradient-text-gold">camino a la viabilidad</span>
               </h2>
               <p className="text-zinc-400 text-sm leading-relaxed">
-                Estamos basados en Hermosillo, Sonora, el epicentro minero del norte de la república mexicana. Comuníquese directamente para cotizar licencias, peritajes, obras civiles o registrarse en la cartera MinLink.
+                Nos ubicamos en Hermosillo, Sonora, el epicentro minero del norte de la república mexicana. Comuníquese directamente para cotizar licencias, peritajes, obras civiles o registrarse en la cartera MinLink.
               </p>
 
               <div className="w-full space-y-4 pt-4">
@@ -1321,7 +1327,7 @@ export default function App() {
             </div>
             
             <p className="text-zinc-400 text-xs leading-relaxed">
-              Servicios Industriales, Gestión de Licencias SEDENA/SE/SEMARNAT, Proyectos Civiles y Plataforma MinLink de Vinculación Geonormativa en México.
+              Servicios Industriales, Gestión de Licencias SEDENA/SE/SEMARNAT, Proyectos Civiles y Plataforma CosLink de Vinculación Geonormativa en México.
             </p>
 
             <div className="pt-1">
@@ -1404,7 +1410,7 @@ export default function App() {
             <ul className="space-y-2 text-xs">
               <li><a href="#servicios" onClick={() => setSelectedServiceCategory('mining')} className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Servicios Mineros Técnicos</a></li>
               <li><a href="#servicios" onClick={() => setSelectedServiceCategory('industrial')} className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Industrial & Obra Civil</a></li>
-              <li><a href="#minlink" className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">MinLink Strategic Hub</a></li>
+              <li><a href="#coslink" className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">CosLink Strategic Hub</a></li>
               <li><a href="#contacto" className="text-zinc-400 hover:text-white uppercase tracking-wider text-[11px]">Asesoría y Dictámenes</a></li>
             </ul>
           </div>

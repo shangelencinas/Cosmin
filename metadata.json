@@ -1,6 +1,6 @@
 {
   "name": "COSMIN | Servicios Mineros Premium",
-  "description": "Soluciones integrales de ingeniería minera, obra civil, geología y vinculación estratégica MinLink para concesionarios e inversionistas.",
+  "description": "Soluciones integrales de ingeniería minera, geología, termofusión, metalmecánica y gestión de licencias periciales.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
