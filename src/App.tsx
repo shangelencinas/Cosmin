@@ -71,32 +71,37 @@ export default function App() {
   });
 
 
-  // Monitor page scroll to style header
+  // Monitor page scroll to style header with requestAnimationFrame throttling (avoids CPU layout thrashing)
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          setScrolled(scrollY > 40);
 
-      // Simple active link spy
-      const sections = ['inicio', 'acerca', 'servicios', 'proyectos', 'coslink', 'contacto'];
-      const scrollPosition = window.scrollY + 250;
+          // Simple active link spy
+          const sections = ['inicio', 'acerca', 'servicios', 'proyectos', 'coslink', 'contacto'];
+          const scrollPosition = scrollY + 250;
 
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
+          for (const section of sections) {
+            const el = document.getElementById(section);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                setActiveSection(section);
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -356,9 +361,9 @@ export default function App() {
           <div className="absolute inset-0 bg-radial-[circle_at_center,_transparent_40%,_#09090b_95%]" />
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-zinc-950/60 to-zinc-950" />
           
-          {/* Subtle slow background golden pulse */}
-          <div className="absolute top-[20%] right-[15%] w-96 h-96 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[8000ms]" />
-          <div className="absolute bottom-[10%] left-[5%] w-80 h-80 bg-zinc-800/30 rounded-full blur-[100px] pointer-events-none" />
+          {/* Subtle ambient golden gradient without expensive continuous pulse repaint */}
+          <div className="absolute top-[20%] right-[15%] w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-[10%] left-[5%] w-80 h-80 bg-zinc-800/20 rounded-full blur-2xl pointer-events-none" />
         </div>
 
         {/* Content Container */}
@@ -1478,7 +1483,7 @@ export default function App() {
           className="fixed bottom-6 right-6 z-40 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl transition duration-300 hover:scale-110 flex items-center justify-center gold-glow"
           aria-label="Chat Directo WhatsApp con COSMIN"
         >
-          <MessageCircle className="w-6 h-6 animate-pulse" />
+          <MessageCircle className="w-6 h-6" />
         </a>
       </footer>
 
